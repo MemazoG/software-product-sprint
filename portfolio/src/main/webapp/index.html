@@ -4,15 +4,98 @@
     <meta charset="UTF-8">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
     <script src="script.js"></script>
   </head>
+  
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
+      <h1>Guillermo's Portfolio</h1>
+      <p>
+          Hello everyone! My name's Guillermo García, I'm a sophomore at  
+          Tecnológico de Monterrey, in Monterrey, México. I enjoy watching 
+          movies and series, chilling with my friends, and listening to music!
+      </p>
+      <p>Here are some pictures of me</p>
+      <div id="pictures">
+          <img src="/images/sanDiegoPicture.jpeg" width="360px" height="500px"/>
+          <img src="/images/nye.jpeg" width="360px" height="500px"/>
+      </div>
+
+      </br>
+
+    <h2>Projects</h2>
+      <p>
+          I really enjoy programming, since it allows people to create TONS of
+          cool things! Here are some of the projects I have until now:
+      </p>
+      <ul>
+          <li><b>EcoSave Hackathon Project</b> (Javascript, Node.js, Express.js, Socket.IO, HTML, CSS)</li>
+          <p>
+              System that measures the water, gas, and electricity consumption
+              levels of a house in real-time, displays them, and projects their
+              expected price.
+          </p>
+          <li><b>Inventory Management System</b> (Java)</li>
+          <p>
+              Program that allows a business to manage their inventory, 
+              inventory orders, purchase orders, and shipments.
+          </p>
+      </ul>
+      
+      </br>
+      
+      <p>
+          If you'd like to see my resume, click <a href="https://drive.google.com/file/d/12ppXkArJaL26ycGtK5M6o9YBE5tTn98g/view?usp=sharing" target="_blank">HERE</a>
+      </p>
+
+      </br>
+
+      <h2>Hobbies</h2>
+      <p>
+          One of my favorite things to do when I have time to spare is watching movies 
+          and TV series. I enjoy horror, suspense, and action genres, and among my 
+          favorite movies are Star Wars ROTS, El Camino, and The Thing. As for TV series,
+          my absoulte favorites are Breaking Bad and Better Call Saul. I LOVE these shows,
+          and I have watched them both several times lol.  
+      </p>
+      <div class="containerPics">
+          <img src="/images/starWarsLogo.png" class="contPics">
+          <img src="/images/elCamino.png" class="contPics">
+          <img src="/images/theThing.jpg" class="contPics">
+          <img src="/images/heisenberg.png" class="contPics">
+      </div>
+
+      <p>
+          I also enjoy playing videogames, and right now I'm really into God of War and 
+          Star Wars Battlefront 2. Also, when the weather's nice, I like to go hiking 
+          with my friends or family. Since Monterrey is literally surrounded by mountains, 
+          there's plenty of options to go explore, which is super nice!
+      </p>
+
+      <img src="/images/chipinque.jpeg" width="650px"/>
+
+      </br>
+
+      <p>Click here to get random facts about me!:</p>
+      <button onclick="addRandomGreeting()">Click me!</button>
       <div id="greeting-container"></div>
+    </div>
+
+    <div id="socialMedia">
+        <h2>Let's get in touch! :)</h2>
+        <a href="https://www.facebook.com/memo.garcia.9887" target="_blank">
+            <img src="/images/facebookLogo.png" height="75px" width="75px"/>
+        </a>
+        <a href="https://www.linkedin.com/in/guillermo-garcia-vazquez/" target="_blank">
+            <img src="/images/linkedinLogo.png" height="75px" width="75px"/>
+        </a>
+        <a href="https://github.com/MemazoG" target="_blank">
+            <img src="/images/githubLogo.png" height="75px" width="75px"/>
+        </a>
+        <a href="https://www.instagram.com/memo.garciav/" target="_blank">
+            <img src="/images/instagramLogo.png" height="75px" width="75px"/>
+        </a>
     </div>
   </body>
 </html>
