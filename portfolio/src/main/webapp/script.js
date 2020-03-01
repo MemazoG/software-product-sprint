@@ -32,3 +32,24 @@ function getMessage(){
        document.getElementById('messageContainer').innerText = message;
    })); 
 }
+
+function getMessagesJSON(){
+    fetch('/data').then(response => response.json()).then((messages) => {
+        const messagesListElement = document.getElementById('messageContainer');
+        messagesListElement.innerHTML = '';
+        
+        //Console.log just to check that everything's working fine
+        console.log(messages);
+
+        //Appending each element of the ArrayList to the container
+        messagesListElement.appendChild(createListElement('English: ' + messages[0]));
+        messagesListElement.appendChild(createListElement('Español: ' + messages[1]));
+        messagesListElement.appendChild(createListElement('Deutsch: ' + messages[2]));
+    });
+}
+
+function createListElement(text){
+    const liElement = document.createElement('li');
+    liElement.innerText = text;
+    return liElement;
+}
