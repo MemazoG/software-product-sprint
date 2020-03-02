@@ -14,7 +14,14 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
+import com.google.sps.data.Task;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +34,25 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  //[0] = comment1Author, [1] = comment1Text, [2] = comment2Author, ...
-  private List<String> comments = new ArrayList<>();
-
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Converting the comments to JSON
-    Gson gson = new Gson();
-    String json = gson.toJson(comments);
+    //-----DATASTORE-----
+    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-    //Sending JSON
+    List<Task> tasks = new ArrayList<>();
+    for(Entity entity : results.asIterable()){
+        long id = entity.getKey().getId();
+        String author = (String) entity.getProperty("author");
+        String comment = (String) entity.getProperty("comment");
+        long timestamp = (long) entity.getProperty("timestamp");
+
+        Task task = new Task(id, author, comment, timestamp);
+        tasks.add(task);
+    }
+    Gson gson = new Gson();
+    String json = gson.toJson(tasks);
     response.setContentType("application/json");
     response.getWriter().println(json);
   }
@@ -44,13 +60,19 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //Gets the comment and its author
+    //Gets the information
     String commentAuthor = getParameter(request, "textName", "Anonymous");
-    String comment = getParameter(request, "textAuthor", "-");
+    String comment = getParameter(request, "textComment", "-");
+    long timestamp = System.currentTimeMillis();
 
-    //Storing the comment and its author
-    comments.add(commentAuthor);
-    comments.add(comment);
+    Entity taskEntity = new Entity("Task");
+
+    taskEntity.setProperty("author", commentAuthor);
+    taskEntity.setProperty("comment", comment);
+    taskEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
 
     //Redirecting to the same page
     response.sendRedirect("/index.html");

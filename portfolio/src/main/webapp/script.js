@@ -29,18 +29,14 @@ function addRandomGreeting() {
 
 function getCommentSection(){
     fetch('/data').then(response => response.json()).then((comments) => {
-        //Loops through the ArrayList
         for(let i=0; i<comments.length; i++){
-            let text = '<p>' + comments[i] + '</p>';
-            //Inserts the author's name in bold
-            if(i%2==0){
-                text = '<p><b>' + comments[i] + '</b></p>';
-            }
-            document.getElementById('commentContainer').innerHTML += text;
-            //Inserting a </br> to space comments from each other
-            if(i%2==1){
-                document.getElementById('commentContainer').innerHTML += '</br> <hr>';
-            }
+            let textAuthor = '<p><b>' + comments[i].author + '</b></p>';
+            let textComment = '<p>' + comments[i].comment + '</p>';
+            let textTimestamp = '<p> Timestamp: ' + comments[i].timestamp + '</p></br><hr>';
+
+            document.getElementById('commentContainer').innerHTML += textAuthor;
+            document.getElementById('commentContainer').innerHTML += textComment;
+            document.getElementById('commentContainer').innerHTML += textTimestamp;
         }
     });
 }
