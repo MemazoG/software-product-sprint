@@ -27,22 +27,44 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private List<String> messages;
+  //[0] = comment1Author, [1] = comment1Text, [2] = comment2Author, ...
+  private List<String> comments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    //List's data
-    messages = new ArrayList<>();
-    messages.add("Hello!");
-    messages.add("Hola!");
-    messages.add("Hallo!");
-
-    //Converting to JSON
+    //Converting the comments to JSON
     Gson gson = new Gson();
-    String json = gson.toJson(messages);
+    String json = gson.toJson(comments);
 
     //Sending JSON
     response.setContentType("application/json");
     response.getWriter().println(json);
+  }
+
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    //Gets the comment and its author
+    String commentAuthor = getParameter(request, "textName", "Anonymous");
+    String comment = getParameter(request, "textAuthor", "-");
+
+    //Storing the comment and its author
+    comments.add(commentAuthor);
+    comments.add(comment);
+
+    //Redirecting to the same page
+    response.sendRedirect("/index.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }

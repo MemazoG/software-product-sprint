@@ -27,29 +27,20 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-function getMessage(){
-   fetch('/data').then(response => response.text().then((message) => {
-       document.getElementById('messageContainer').innerText = message;
-   })); 
-}
-
-function getMessagesJSON(){
-    fetch('/data').then(response => response.json()).then((messages) => {
-        const messagesListElement = document.getElementById('messageContainer');
-        messagesListElement.innerHTML = '';
-        
-        //Console.log just to check that everything's working fine
-        console.log(messages);
-
-        //Appending each element of the ArrayList to the container
-        messagesListElement.appendChild(createListElement('English: ' + messages[0]));
-        messagesListElement.appendChild(createListElement('Español: ' + messages[1]));
-        messagesListElement.appendChild(createListElement('Deutsch: ' + messages[2]));
+function getCommentSection(){
+    fetch('/data').then(response => response.json()).then((comments) => {
+        //Loops through the ArrayList
+        for(let i=0; i<comments.length; i++){
+            let text = '<p>' + comments[i] + '</p>';
+            //Inserts the author's name in bold
+            if(i%2==0){
+                text = '<p><b>' + comments[i] + '</b></p>';
+            }
+            document.getElementById('commentContainer').innerHTML += text;
+            //Inserting a </br> to space comments from each other
+            if(i%2==1){
+                document.getElementById('commentContainer').innerHTML += '</br> <hr>';
+            }
+        }
     });
-}
-
-function createListElement(text){
-    const liElement = document.createElement('li');
-    liElement.innerText = text;
-    return liElement;
 }

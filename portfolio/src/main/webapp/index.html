@@ -8,10 +8,9 @@
     <script src="script.js"></script>
   </head>
   
-  <body>
+  <body onload="getCommentSection()">
     <div id="content">
       <h1>Guillermo's Portfolio</h1>
-      <p>Click <a href="/data">here</a></p>
       <p>
           Hello everyone! My name's Guillermo García, I'm a sophomore at  
           Tecnológico de Monterrey, in Monterrey, México. I enjoy watching 
@@ -81,10 +80,27 @@
       <p>Click here to get random facts about me!:</p>
       <button onclick="addRandomGreeting()">Click me!</button>
       <div id="greeting-container"></div>
+    </div>
 
-      <p>Click here to request the message "Hello Memo!"</p>
-      <button onclick="getMessagesJSON()">Click me!</button>
-      <div id="messageContainer"></div>
+    </br>
+
+    <div id="commentSection">
+        <h2>Comment Section</h2>
+        <hr>
+        <div id="commentContainer">
+            
+        </div>
+        </br>
+
+        <form action="/data" method="POST">
+            <h3>Name:</h3>
+            <textarea name="textName">Your name goes here</textarea>
+            </br>
+            <h3>Comment:</h3>
+            <textarea name="textAuthor">Your comment goes here</textarea>
+            </br>
+            <input type="submit" value="Submit"/>
+        </form>
     </div>
 
     <div id="socialMedia">
