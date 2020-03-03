@@ -27,8 +27,39 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-function getMessage(){
-   fetch('/data').then(response => response.text().then((message) => {
-       document.getElementById('messageContainer').innerText = message;
-   })); 
+function getCommentSection(){
+    fetch('/data').then(response => response.json()).then((comments) => {
+        const divElement = document.getElementById('commentContainer');
+        comments.forEach((comment) => {
+            divElement.appendChild(createCommentDiv(comment));
+        });
+    });
+}
+
+function createCommentDiv(comment){
+    //Where the author, comment, and timestamp will go
+    const myDiv = document.createElement('div');
+
+    //<p><b>Author</b></p>
+    const pAuthorElement = document.createElement('p'); 
+    const boldAuthorElement = document.createElement('B');
+    boldAuthorElement.innerText = comment.author;
+    pAuthorElement.appendChild(boldAuthorElement);
+    
+    //<p>Comment</p>
+    const pCommentElement = document.createElement('p');
+    pCommentElement.innerText = comment.comment;
+
+    //<p>Timestamp: timestamp</p>
+    const pTimestampElement = document.createElement('p');
+    pTimestampElement.innerText = 'Timestamp: ' + comment.timestamp;
+
+    //Placing all the above info in the <div> tag, and adding <br /> and <hr> tags at the end
+    myDiv.appendChild(pAuthorElement);
+    myDiv.appendChild(pCommentElement);
+    myDiv.appendChild(pTimestampElement);
+    myDiv.appendChild(document.createElement('br'));
+    myDiv.appendChild(document.createElement('hr'));
+
+    return myDiv;
 }

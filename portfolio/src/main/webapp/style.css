@@ -1,4 +1,4 @@
-#content {
+#content, #commentSection {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
@@ -9,7 +9,7 @@ img {
 }
 
 img:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .contPics {
@@ -43,6 +43,6 @@ img:hover {
   margin-top: 20px;
 }
 
-p, h1, h2, b, li {
+p, h1, h2, h3, b, li {
     font-family: 'Raleway', sans-serif;
 }

@@ -8,10 +8,9 @@
     <script src="script.js"></script>
   </head>
   
-  <body>
+  <body onload="getCommentSection()">
     <div id="content">
       <h1>Guillermo's Portfolio</h1>
-      <p>Click <a href="/data">here</a></p>
       <p>
           Hello everyone! My name's Guillermo García, I'm a sophomore at  
           Tecnológico de Monterrey, in Monterrey, México. I enjoy watching 
@@ -23,7 +22,7 @@
           <img src="/images/nye.jpeg" width="360px" height="500px"/>
       </div>
 
-      </br>
+      <br />
 
     <h2>Projects</h2>
       <p>
@@ -44,13 +43,13 @@
           </p>
       </ul>
       
-      </br>
+      <br />
       
       <p>
           If you'd like to see my resume, click <a href="https://drive.google.com/file/d/12ppXkArJaL26ycGtK5M6o9YBE5tTn98g/view?usp=sharing" target="_blank">HERE</a>
       </p>
 
-      </br>
+      <br />
 
       <h2>Hobbies</h2>
       <p>
@@ -81,10 +80,27 @@
       <p>Click here to get random facts about me!:</p>
       <button onclick="addRandomGreeting()">Click me!</button>
       <div id="greeting-container"></div>
+    </div>
 
-      <p>Click here to request the message "Hello Memo!"</p>
-      <button onclick="getMessage()">Click me!</button>
-      <div id="messageContainer"></div>
+    <br />
+
+    <div id="commentSection">
+        <h2>Comment Section</h2>
+        <hr>
+        <div id="commentContainer">
+            
+        </div>
+        <br />
+
+        <form action="/data" method="POST">
+            <h3>Name:</h3>
+            <textarea name="textName">Your name goes here</textarea>
+            <br />
+            <h3>Comment:</h3>
+            <textarea name="textComment">Your comment goes here</textarea>
+            <br />
+            <input type="submit" value="Submit"/>
+        </form>
     </div>
 
     <div id="socialMedia">
