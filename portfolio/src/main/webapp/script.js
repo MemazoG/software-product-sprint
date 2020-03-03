@@ -29,14 +29,37 @@ function addRandomGreeting() {
 
 function getCommentSection(){
     fetch('/data').then(response => response.json()).then((comments) => {
-        for(let i=0; i<comments.length; i++){
-            let textAuthor = '<p><b>' + comments[i].author + '</b></p>';
-            let textComment = '<p>' + comments[i].comment + '</p>';
-            let textTimestamp = '<p> Timestamp: ' + comments[i].timestamp + '</p></br><hr>';
-
-            document.getElementById('commentContainer').innerHTML += textAuthor;
-            document.getElementById('commentContainer').innerHTML += textComment;
-            document.getElementById('commentContainer').innerHTML += textTimestamp;
-        }
+        const divElement = document.getElementById('commentContainer');
+        comments.forEach((comment) => {
+            divElement.appendChild(createCommentDiv(comment));
+        });
     });
+}
+
+function createCommentDiv(comment){
+    //Where the author, comment, and timestamp will go
+    const myDiv = document.createElement('div');
+
+    //<p><b>Author</b></p>
+    const pAuthorElement = document.createElement('p'); 
+    const boldAuthorElement = document.createElement('B');
+    boldAuthorElement.innerText = comment.author;
+    pAuthorElement.appendChild(boldAuthorElement);
+    
+    //<p>Comment</p>
+    const pCommentElement = document.createElement('p');
+    pCommentElement.innerText = comment.comment;
+
+    //<p>Timestamp: timestamp</p>
+    const pTimestampElement = document.createElement('p');
+    pTimestampElement.innerText = 'Timestamp: ' + comment.timestamp;
+
+    //Placing all the above info in the <div> tag, and adding <br /> and <hr> tags at the end
+    myDiv.appendChild(pAuthorElement);
+    myDiv.appendChild(pCommentElement);
+    myDiv.appendChild(pTimestampElement);
+    myDiv.appendChild(document.createElement('br'));
+    myDiv.appendChild(document.createElement('hr'));
+
+    return myDiv;
 }
