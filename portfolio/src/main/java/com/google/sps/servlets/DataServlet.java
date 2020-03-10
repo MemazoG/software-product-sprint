@@ -14,6 +14,9 @@
 
 package com.google.sps.servlets;
 
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -40,7 +43,9 @@ public class DataServlet extends HttpServlet {
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
+    
+    String languageCode = request.getParameter("languageCode");
+    
     List<Task> tasks = new ArrayList<>();
     for(Entity entity : results.asIterable()){
         long id = entity.getKey().getId();
@@ -48,7 +53,12 @@ public class DataServlet extends HttpServlet {
         String comment = (String) entity.getProperty("comment");
         long timestamp = (long) entity.getProperty("timestamp");
 
-        Task task = new Task(id, author, comment, timestamp);
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Translation translation = translate.translate(comment, Translate.TranslateOption.targetLanguage(languageCode));
+        String translatedComment = translation.getTranslatedText();
+
+        //Replaces the comment in english with the comment in the selected language
+        Task task = new Task(id, author, translatedComment, timestamp);
         tasks.add(task);
     }
     Gson gson = new Gson();

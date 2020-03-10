@@ -86,11 +86,21 @@
 
     <div id="commentSection">
         <h2>Comment Section</h2>
+        <p>Want to translate the comments? Try it!</p>
+        <select id="languageCode">
+            <option value="en" selected>English</option>
+            <option value="es">Spanish</option>
+            <option value="hi">Hindi</option>
+            <option value="zh">Chinese</option>
+            <option value="ar">Arabic</option>
+            <option value="de">German</option>
+        </select>
+        <button onclick="requestTranslation()">Translate!</button>
         <hr>
+
         <div id="commentContainer">
             
         </div>
-        <br />
 
         <form action="/data" method="POST">
             <h3>Name:</h3>
