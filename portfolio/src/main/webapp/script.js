@@ -27,8 +27,22 @@ function addRandomGreeting() {
   greetingContainer.innerText = greeting;
 }
 
-function getCommentSection(){
-    fetch('/data').then(response => response.json()).then((comments) => {
+function requestTranslation(){
+    //Clears the comment container so comments are not duplicated,
+    //but instead replaced by themselves in the selected language
+    document.getElementById('commentContainer').innerText = '';
+    //Gets the selected language code from the dropdown
+    const languageCode = document.getElementById('languageCode').value;
+    getCommentSection(languageCode);
+}
+
+//Language is in English by default
+function getCommentSection(languageCode='en'){
+    const params = new URLSearchParams();
+    params.append('languageCode', languageCode);
+    
+    //www.example.com/file?key=value --> languageCode=en/es/de...
+    fetch('/data?' + params.toString()).then(response => response.json()).then((comments) => {
         const divElement = document.getElementById('commentContainer');
         comments.forEach((comment) => {
             divElement.appendChild(createCommentDiv(comment));
